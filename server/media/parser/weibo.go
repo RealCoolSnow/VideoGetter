@@ -15,6 +15,8 @@ const (
 	vurl = "http://h5.video.weibo.com/api/component?page="
 )
 
+type JSONObject map[string]interface{}
+
 // ParseWeiboVideo - parse weibo video
 func ParseWeiboVideo(wbURL string) (string, error) {
 	re := regexp.MustCompile(`[0-9]+:[0-9]+`)
@@ -37,8 +39,15 @@ func ParseWeiboVideo(wbURL string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	var jsonData interface{}
+	var jsonData JSONObject
 	err = json.Unmarshal(data, &jsonData)
-	util.Debug(jsonData.code)
+	if err != nil {
+		return "", err
+	}
+	dataJson := jsonData["data"].(JSONObject)
+	if dataJson != nil {
+		infoJson := dataJson["Component_Play_Playinfo"].(JSONObject)
+		util.Debug(infoJson)
+	}
 	return string(data), err
 }
