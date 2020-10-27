@@ -7,13 +7,27 @@ import (
 	"video.get/m/media/parser"
 )
 
+const (
+	Unknown = 0
+	Weibo   = 1
+)
+
 // GetVideoURL is parse video url
 func GetVideoURL(url string) (string, error) {
-	// html, err := httputil.GetWebpage(url)
 	videoURL := ""
-	err := errors.New("Not Support")
-	if strings.Contains(url, "weibo.com") {
+	err := errors.New("don't support")
+	source := GetMediaSource(url)
+	switch source {
+	case Weibo:
 		videoURL, err = parser.ParseWeiboVideo(url)
 	}
 	return videoURL, err
+}
+
+// GetMediaSource -
+func GetMediaSource(url string) int {
+	if strings.Contains(url, "weibo.com") {
+		return Weibo
+	}
+	return Unknown
 }

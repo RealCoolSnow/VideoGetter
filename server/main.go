@@ -3,29 +3,28 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"github.com/kataras/iris/v12"
 	"video.get/m/api"
 	"video.get/m/config"
-)
-
-const (
-	EnvPrefix string = "VG_"
+	"video.get/m/util"
 )
 
 func main() {
 	config.Init(config.ConfigPath())
+	conf := config.Instance()
 	/// database init
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true&charset=utf8",
-		getenv("MYSQL_USER", ""),
-		getenv("MYSQL_PASSWORD", ""),
-		getenv("MYSQL_HOST", "localhost"),
-		getenv("MYSQL_DATABASE", ""),
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=%s",
+		conf.Mysql.Username,
+		conf.Mysql.Password,
+		conf.Mysql.Host,
+		conf.Mysql.Port,
+		conf.Mysql.Database,
+		conf.Mysql.Charset,
 	)
-
+	util.Debug("dsn", dsn)
 	db, err := sqlx.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalf("error connecting to the MySQL database: %v", err)
@@ -36,15 +35,6 @@ func main() {
 	subRouter := api.Router(db)
 	app.PartyFunc("/", subRouter)
 
-	addr := fmt.Sprintf(":%s", getenv("PORT", "8081"))
+	addr := fmt.Sprintf(":%d", conf.Port)
 	app.Listen(addr)
-}
-
-func getenv(key string, def string) string {
-	v := os.Getenv(EnvPrefix + key)
-	if v == "" {
-		return def
-	}
-
-	return v
 }

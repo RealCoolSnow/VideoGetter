@@ -13,12 +13,12 @@ const (
 
 // Resp is a common json format
 type Resp struct {
-	code int         `json:"code"`
-	msg  string      `json:"msg"`
-	data interface{} `json:"data"`
+	code int
+	msg  string
+	data interface{}
 }
 
-func (r *Resp) writeJSON(cxt iris.Context) {
+func (r Resp) writeJSON(cxt iris.Context) {
 	cxt.JSON(iris.Map{
 		"code": r.code,
 		"msg":  r.msg,
@@ -27,17 +27,17 @@ func (r *Resp) writeJSON(cxt iris.Context) {
 }
 
 // Success for normal Resp
-func (r *Resp) Success(cxt iris.Context) {
+func (r Resp) Success(cxt iris.Context) {
 	r.Write(cxt, Success, "ok", nil)
 }
 
 // Fail for normal Resp
-func (r *Resp) Fail(cxt iris.Context) {
+func (r Resp) Fail(cxt iris.Context) {
 	r.Write(cxt, Fail, "fail", nil)
 }
 
 // Write is Response the "Resp" Struct
-func (r *Resp) Write(cxt iris.Context, code int, msg string, data interface{}) {
+func (r Resp) Write(cxt iris.Context, code int, msg string, data interface{}) {
 	r.code = code
 	r.msg = msg
 	r.data = data
@@ -45,16 +45,16 @@ func (r *Resp) Write(cxt iris.Context, code int, msg string, data interface{}) {
 }
 
 // GetCode return Resp.code
-func (r *Resp) GetCode() int {
+func (r Resp) GetCode() int {
 	return r.code
 }
 
 // GetMsg return Resp.msg
-func (r *Resp) GetMsg() string {
+func (r Resp) GetMsg() string {
 	return r.msg
 }
 
 // GetData return Resp.data
-func (r *Resp) GetData() interface{} {
+func (r Resp) GetData() interface{} {
 	return r.data
 }

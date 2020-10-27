@@ -7,8 +7,18 @@ import (
 	"sync"
 )
 
+type MysqlConfig struct {
+	Host     string `json:"host"`
+	Port     int    `json:"port"`
+	Charset  string `json:"charset"`
+	Database string `json:"database"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
 type AppConfig struct {
-	Debug bool `json:"debug"`
+	Debug bool        `json:"debug"`
+	Port  int         `json:"port"`
+	Mysql MysqlConfig `json:"mysql"`
 }
 
 var configPath string = "config.json"
