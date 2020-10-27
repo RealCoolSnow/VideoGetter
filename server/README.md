@@ -3,6 +3,6 @@
 
 watcher -c config -p 7000 -h localhost
 
-# go proxy in China
+# go proxy
 
 https://goproxy.cn/
