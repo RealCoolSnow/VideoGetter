@@ -20,10 +20,10 @@ func main() {
 	config.Init(config.ConfigPath())
 	/// database init
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true&charset=utf8",
-		getenv("MYSQL_USER", "root"),
-		getenv("MYSQL_PASSWORD", "xiaofengMUmu@0927"),
+		getenv("MYSQL_USER", ""),
+		getenv("MYSQL_PASSWORD", ""),
 		getenv("MYSQL_HOST", "localhost"),
-		getenv("MYSQL_DATABASE", "snow"),
+		getenv("MYSQL_DATABASE", ""),
 	)
 
 	db, err := sqlx.Open("mysql", dsn)
