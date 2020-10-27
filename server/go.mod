@@ -3,6 +3,8 @@ module video.get/m
 go 1.15
 
 require (
+	github.com/EDDYCJY/fake-useragent v0.2.0
+	github.com/PuerkitoBio/goquery v1.6.0 // indirect
 	github.com/canthefason/go-watcher v0.2.4 // indirect
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0

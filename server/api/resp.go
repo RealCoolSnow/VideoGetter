@@ -3,47 +3,58 @@ package api
 import "github.com/kataras/iris/v12"
 
 const (
-	Success    = 0
-	Fail       = -1
+	// Success - ok
+	Success = 0
+	// Fail - error
+	Fail = -1
+	// ErrParams - params error
 	ErrParams = -2
 )
 
+// Resp is a common json format
 type Resp struct {
 	code int         `json:"code"`
 	msg  string      `json:"msg"`
 	data interface{} `json:"data"`
 }
 
-func (self *Resp) WriteJson(cxt iris.Context) {
+func (r *Resp) writeJSON(cxt iris.Context) {
 	cxt.JSON(iris.Map{
-		"code": self.code,
-		"msg":  self.msg,
-		"data": self.data,
+		"code": r.code,
+		"msg":  r.msg,
+		"data": r.data,
 	})
 }
 
-func (self *Resp) Success(cxt iris.Context) {
-	self.Write(cxt, Success, "ok", nil)
+// Success for normal Resp
+func (r *Resp) Success(cxt iris.Context) {
+	r.Write(cxt, Success, "ok", nil)
 }
 
-func (self *Resp) Fail(cxt iris.Context) {
-	self.Write(cxt, Fail, "fail", nil)
+// Fail for normal Resp
+func (r *Resp) Fail(cxt iris.Context) {
+	r.Write(cxt, Fail, "fail", nil)
 }
 
-func (self *Resp) Write(cxt iris.Context, code int, msg string, data interface{}) {
-	self.code = code
-	self.msg = msg
-	self.data = data
-	self.WriteJson(cxt)
-}
-func (self *Resp) GetCode() int {
-	return self.code
+// Write is Response the "Resp" Struct
+func (r *Resp) Write(cxt iris.Context, code int, msg string, data interface{}) {
+	r.code = code
+	r.msg = msg
+	r.data = data
+	r.writeJSON(cxt)
 }
 
-func (self *Resp) GetMsg() string {
-	return self.msg
+// GetCode return Resp.code
+func (r *Resp) GetCode() int {
+	return r.code
 }
 
-func (self *Resp) GetData() interface{} {
-	return self.data
+// GetMsg return Resp.msg
+func (r *Resp) GetMsg() string {
+	return r.msg
+}
+
+// GetData return Resp.data
+func (r *Resp) GetData() interface{} {
+	return r.data
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kataras/iris/v12"
 	"video.get/m/api"
+	"video.get/m/config"
 )
 
 const (
@@ -16,6 +17,7 @@ const (
 )
 
 func main() {
+	config.Init(config.ConfigPath())
 	/// database init
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true&charset=utf8",
 		getenv("MYSQL_USER", "root"),

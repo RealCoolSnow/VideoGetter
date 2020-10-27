@@ -9,6 +9,7 @@ import (
 	"video.get/m/media"
 )
 
+// Router set for app
 func Router(db *sqlx.DB) func(iris.Party) {
 	return func(r iris.Party) {
 		r.Get("/", index())
@@ -31,7 +32,7 @@ func parseVideoURL() iris.Handler {
 		if url == "" {
 			resp.Write(c, ErrParams, "empty url", nil)
 		} else {
-			v, err := media.GetVideoUrl(url)
+			v, err := media.GetVideoURL(url)
 			if err != nil {
 				resp.Write(c, Fail, err.Error(), nil)
 			} else {
