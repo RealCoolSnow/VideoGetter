@@ -8,9 +8,9 @@
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:video_getter/ui/page/about.dart';
-import 'package:video_getter/ui/page/home.dart';
-import 'package:video_getter/ui/webview/webview.dart';
+import 'package:flutter_quick_start/ui/page/about.dart';
+import 'package:flutter_quick_start/ui/page/home.dart';
+import 'package:flutter_quick_start/ui/webview/webview.dart';
 
 /// home
 var homeHandler = Handler(

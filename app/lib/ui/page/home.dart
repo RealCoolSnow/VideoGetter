@@ -7,14 +7,14 @@
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:video_getter/config/config.dart';
-import 'package:video_getter/config/route/routes.dart';
-import 'package:video_getter/locale/i18n.dart';
-import 'package:video_getter/ui/page/home/tab1.dart';
-import 'package:video_getter/ui/page/home/tab2.dart';
-import 'package:video_getter/ui/page/home/tab3.dart';
-import 'package:video_getter/ui/widget/smart_drawer.dart';
-import 'package:video_getter/util/log_util.dart';
+import 'package:flutter_quick_start/config/config.dart';
+import 'package:flutter_quick_start/config/route/routes.dart';
+import 'package:flutter_quick_start/locale/i18n.dart';
+import 'package:flutter_quick_start/ui/page/home/tab1.dart';
+import 'package:flutter_quick_start/ui/page/home/tab2.dart';
+import 'package:flutter_quick_start/ui/page/home/tab3.dart';
+import 'package:flutter_quick_start/ui/widget/smart_drawer.dart';
+import 'package:flutter_quick_start/util/log_util.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => new _HomePageState();

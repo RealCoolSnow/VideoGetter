@@ -111,10 +111,10 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  video_getterloading:
+  flutter_easyloading:
     dependency: "direct main"
     description:
-      name: video_getterloading
+      name: flutter_easyloading
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"

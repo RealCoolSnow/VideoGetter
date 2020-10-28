@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
  * SplashScreen(
         seconds: 3,
         navigateAfterSeconds: HomePage(),
-        title: Text('video_getter',
+        title: Text('flutter_easy',
             style: TextStyle(
                 fontWeight: FontWeight.w700, fontSize: 20, color: Colors.pink)),
         imageBackground: AssetImage('assets/images/splash.jpg'),

@@ -6,7 +6,7 @@
  * @LastEditTime: 2020-09-14 11:10:06
  */
 import 'package:flutter/material.dart';
-import 'package:video_getter/ui/widget/shimmer.dart';
+import 'package:flutter_quick_start/ui/widget/shimmer.dart';
 
 class Tab3 extends StatefulWidget {
   @override

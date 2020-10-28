@@ -1,4 +1,4 @@
-package app.video.getter
+package com.coolsnow.flutter_quick_start
 
 import io.flutter.embedding.android.FlutterActivity
 

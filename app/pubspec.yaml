@@ -1,4 +1,4 @@
-name: video_getter
+name: flutter_quick_start
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -47,8 +47,8 @@ dependencies:
   permission_handler: ^5.0.1+1
   # back_button_interceptor - https://pub.flutter-io.cn/packages/back_button_interceptor
   back_button_interceptor: ^4.3.0
-  # video_getterloading - https://github.com/huangjianke/video_getterloading
-  video_getterloading: ^2.0.0
+  # flutter_easyloading - https://github.com/huangjianke/flutter_easyloading
+  flutter_easyloading: ^2.0.0
   
 dev_dependencies:
   flutter_test:

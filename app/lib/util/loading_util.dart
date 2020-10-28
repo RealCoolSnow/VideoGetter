@@ -6,12 +6,12 @@
  * @LastEditTime: 2020-09-14 11:00:01
  */
 import 'package:flutter/material.dart';
-import 'package:video_getter/locale/i18n.dart';
-import 'package:video_getterloading/video_getterloading.dart';
+import 'package:flutter_quick_start/locale/i18n.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 ///
 ///
-/// see - https://github.com/huangjianke/video_getterloading
+/// see - https://github.com/huangjianke/flutter_easyloading
 /// Loading Util
 ///
 ///
