@@ -28,7 +28,7 @@ func index() iris.Handler {
 func parseVideoURL() iris.Handler {
 	return func(c iris.Context) {
 		url := c.URLParam("url")
-		resp := Resp{}
+		resp := Response{}
 		if url == "" {
 			resp.Write(c, ErrParams, "empty url", nil)
 		} else {
