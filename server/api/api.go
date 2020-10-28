@@ -32,11 +32,11 @@ func parseVideoURL() iris.Handler {
 		if url == "" {
 			resp.Write(c, ErrParams, "empty url", nil)
 		} else {
-			v, err := media.GetVideoURL(url)
+			mediaInfo, err := media.GetMediaInfo(url)
 			if err != nil {
 				resp.Write(c, Fail, err.Error(), nil)
 			} else {
-				resp.Write(c, Success, "ok", v)
+				resp.Write(c, Success, "ok", mediaInfo)
 			}
 		}
 	}
