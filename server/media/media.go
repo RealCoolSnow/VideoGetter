@@ -32,7 +32,7 @@ type MediaInfo struct {
 // GetMediaInfo is parse video url
 func GetMediaInfo(url string) (MediaInfo, error) {
 	videoURL := ""
-	err := errors.New("don't support")
+	err := errors.New("unsupport")
 	source := GetMediaSource(url)
 	var mediaInfo MediaInfo
 	switch source {
