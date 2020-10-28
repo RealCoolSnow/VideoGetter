@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -52,12 +51,13 @@ func insertParseRecord(db *sqlx.DB, url string, userAgent string, mediaInfo medi
 	if err != nil {
 		parseRecord.Result = err.Error()
 	} else {
-		jsonInfo, err := json.Marshal(mediaInfo)
-		if err != nil {
-			parseRecord.Result = err.Error()
-		} else {
-			parseRecord.Result = string(jsonInfo)
-		}
+		// jsonInfo, err := json.Marshal(mediaInfo)
+		// if err != nil {
+		// 	parseRecord.Result = err.Error()
+		// } else {
+		// 	parseRecord.Result = string(jsonInfo)
+		// }
+		parseRecord.Result = mediaInfo.URL
 	}
 	parseRecord.Source = mediaInfo.Source.ID
 	parseRecord.URL = url
