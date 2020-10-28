@@ -32,6 +32,14 @@ func main() {
 	defer db.Close()
 	/// web init
 	app := iris.New()
+	// set log
+	// f, _ := os.Create("web.log")
+	// app.Logger().SetOutput(f)
+	// if conf.Debug {
+	// 	app.Logger().SetLevel("debug")
+	// } else {
+	// 	app.Logger().SetLevel("error")
+	// }
 	subRouter := api.Router(db)
 	app.PartyFunc("/", subRouter)
 

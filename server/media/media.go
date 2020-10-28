@@ -12,10 +12,21 @@ const (
 	Weibo   = 1
 )
 
+const (
+	NameWeibo = "Weibo"
+)
+
+// SourceInfo -
+type SourceInfo struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
 // MediaInfo -
 type MediaInfo struct {
-	URL  string      `json:"url"`
-	Info interface{} `json:"info"`
+	URL    string      `json:"url"`
+	Info   interface{} `json:"info"`
+	Source SourceInfo  `json:"source"`
 }
 
 // GetMediaInfo is parse video url
@@ -31,6 +42,7 @@ func GetMediaInfo(url string) (MediaInfo, error) {
 			videoURL, videoInfo, err = parser.ParseWeiboVideo(url)
 			mediaInfo.URL = videoURL
 			mediaInfo.Info = videoInfo
+			mediaInfo.Source = SourceInfo{ID: Weibo, Name: NameWeibo}
 		}
 	}
 	return mediaInfo, err
