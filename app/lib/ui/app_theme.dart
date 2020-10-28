@@ -13,5 +13,15 @@ class AppTheme {
 
 class AppColor {
   static const Color primary = Colors.indigo;
+  static const Color accent = Colors.pink;
   static const Color white = Colors.white;
+  static const Color nearlyWhite = Color(0xFFFEFEFE);
+  static const Color dark_grey = Color(0xFF313A44);
+}
+
+class AppFontSize {
+  static const double normal = 16;
+  static const double medium = 18;
+  static const double large = 20;
+  static const double xlarge = 24;
 }

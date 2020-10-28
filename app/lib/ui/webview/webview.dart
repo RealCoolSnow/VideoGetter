@@ -12,6 +12,7 @@ import 'dart:core';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_getter/locale/i18n.dart';
 import 'package:video_getter/ui/webview/channel/flutter_channel.dart';
 import 'package:video_getter/util/clipboard_util.dart';
@@ -163,7 +164,7 @@ class _WebViewPageState extends State<WebViewPage> {
   }
 }
 
-enum MenuOptions { refresh, copyLink }
+enum MenuOptions { refresh, copyLink, openExternal }
 
 class WebViewMenu extends StatelessWidget {
   final Future<WebViewController> controller;
@@ -185,6 +186,9 @@ class WebViewMenu extends StatelessWidget {
               case MenuOptions.copyLink:
                 _onCopyLink(controller.data, context);
                 break;
+              case MenuOptions.openExternal:
+                _onOpenExternal(controller.data, context);
+                break;
             }
           },
           itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
@@ -195,6 +199,10 @@ class WebViewMenu extends StatelessWidget {
             PopupMenuItem<MenuOptions>(
               value: MenuOptions.copyLink,
               child: Text(I18n.of(context).text('copy_link')),
+            ),
+            PopupMenuItem<MenuOptions>(
+              value: MenuOptions.openExternal,
+              child: Text(I18n.of(context).text('open_external')),
             ),
           ],
         );
@@ -210,5 +218,15 @@ class WebViewMenu extends StatelessWidget {
     String url = await controller.currentUrl();
     await ClipboardUtil.copy(url);
     ToastUtil.show(I18n.of(context).text('copied'));
+  }
+
+  void _onOpenExternal(
+      WebViewController controller, BuildContext context) async {
+    String url = await controller.currentUrl();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      logUtil.d('Could not launch $url');
+    }
   }
 }

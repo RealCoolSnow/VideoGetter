@@ -67,7 +67,7 @@ class _AppState extends State<App> {
             style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 20,
-                color: AppColor.white)),
+                color: AppColor.primary)),
         imageBackground: AssetImage('assets/images/splash.jpg'),
         icon: AssetImage('assets/images/avatar.jpg'),
         backgroundColor: Colors.white,

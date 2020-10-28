@@ -9,5 +9,6 @@
   "input_url_tip": "Paste URL here",
   "paste": "Paste",
   "download": "Download",
-  "error_url": "url link error"
+  "error_url": "url link error",
+  "open_external": "Open with browser"
 }

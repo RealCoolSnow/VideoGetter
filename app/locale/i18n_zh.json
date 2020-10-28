@@ -9,5 +9,6 @@
   "input_url_tip": "请输入链接",
   "paste": "粘贴",
   "download": "下载",
-  "error_url": "链接有误"
+  "error_url": "链接有误",
+  "open_external": "在浏览器打开"
 }

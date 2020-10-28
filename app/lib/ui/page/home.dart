@@ -8,8 +8,11 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:video_getter/config/config.dart';
+import 'package:video_getter/config/route/routes.dart';
 import 'package:video_getter/locale/i18n.dart';
 import 'package:video_getter/service/http/http_util.dart';
+import 'package:video_getter/ui/app_theme.dart';
 import 'package:video_getter/util/loading_util.dart';
 import 'package:video_getter/util/toast_util.dart';
 
@@ -46,30 +49,104 @@ class _HomePageState extends State<HomePage> {
   Widget _buildBody() {
     return FlutterEasyLoading(
         child: Container(
+            color: AppColor.nearlyWhite,
             padding: const EdgeInsets.all(15),
-            child: Column(
+            child: SafeArea(
+                child: Column(
               children: [
-                TextField(
-                    controller: _inputController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(3)),
-                        hintText: I18n.of(context).text("input_url_tip"))),
+                _buildTextField(),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    verticalDirection: VerticalDirection.down,
                     children: <Widget>[
-                      RaisedButton(
-                          onPressed: _paste,
-                          child: Text(I18n.of(context).text("paste"))),
-                      RaisedButton(
-                          onPressed: _download,
-                          child: Text(I18n.of(context).text("download")))
+                      _buildButton(AppColor.accent,
+                          I18n.of(context).text("paste"), _paste),
+                      _buildButton(AppColor.primary,
+                          I18n.of(context).text("download"), _download)
                     ]),
               ],
-            )));
+            ))));
+  }
+
+  Widget _buildButton(Color bg, String text, GestureTapCallback onTap) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Center(
+        child: Container(
+          width: 180,
+          height: 48,
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.6),
+                  offset: const Offset(4, 4),
+                  blurRadius: 8.0),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onTap,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontSize: AppFontSize.normal),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.8),
+                offset: const Offset(4, 4),
+                blurRadius: 8),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25),
+          child: Container(
+            padding: const EdgeInsets.all(4.0),
+            constraints: const BoxConstraints(minHeight: 80, maxHeight: 160),
+            color: AppColor.white,
+            child: SingleChildScrollView(
+              padding:
+                  const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+              child: TextField(
+                maxLines: null,
+                controller: _inputController,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColor.dark_grey,
+                ),
+                cursorColor: Colors.blue,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: I18n.of(context).text("input_url_tip")),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   _paste() {
@@ -88,7 +165,11 @@ class _HomePageState extends State<HomePage> {
       LoadingUtil.show(context);
       HttpUtil().get('/parse', getParams: {"url": url}).then((value) {
         LoadingUtil.dismiss();
-        ToastUtil.show(value.toString());
+        ToastUtil.show(value['url']);
+        final url = Uri.encodeComponent(value['url']);
+        final title = '';
+        Config.router
+            .navigateTo(context, Routes.webview + "?url=$url&title=$title");
       }).catchError((error) {
         LoadingUtil.dismiss();
         ToastUtil.show(error.msg);
