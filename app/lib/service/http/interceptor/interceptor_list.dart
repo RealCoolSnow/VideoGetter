@@ -6,8 +6,8 @@
  * @LastEditTime: 2020-09-10 14:24:51
  */
 import 'package:dio/dio.dart';
-import 'package:flutter_quick_start/config/config.dart';
-import 'package:flutter_quick_start/util/log_util.dart';
+import 'package:video_getter/config/config.dart';
+import 'package:video_getter/util/log_util.dart';
 
 class HeaderInterceptor extends Interceptor {
   @override

@@ -6,6 +6,6 @@
  * @LastEditTime: 2020-09-10 14:23:24
  */
 import 'package:flutter/material.dart';
-import 'package:flutter_quick_start/ui/app.dart';
+import 'package:video_getter/ui/app.dart';
 
 void main() => runApp(App());

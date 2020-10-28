@@ -7,7 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_quick_start/locale/i18n.dart';
+import 'package:video_getter/locale/i18n.dart';
 
 class AboutPage extends StatefulWidget {
   _AboutPageState createState() => new _AboutPageState();

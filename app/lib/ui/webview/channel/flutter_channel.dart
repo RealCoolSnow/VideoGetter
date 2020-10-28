@@ -6,7 +6,7 @@
  * @LastEditTime: 2020-09-11 11:40:19
  */
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_quick_start/util/log_util.dart';
+import 'package:video_getter/util/log_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 ///
