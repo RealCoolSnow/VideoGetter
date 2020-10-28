@@ -49,6 +49,8 @@ dependencies:
   back_button_interceptor: ^4.3.0
   # flutter_easyloading - https://github.com/huangjianke/flutter_easyloading
   flutter_easyloading: ^2.0.0
+  # clipboard - https://pub.flutter-io.cn/packages/clipboard
+  clipboard: ^0.1.2+8
   
 dev_dependencies:
   flutter_test:

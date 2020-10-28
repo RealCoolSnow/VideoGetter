@@ -1,9 +1,13 @@
 {
-    "app_name": "video_getter",
-    "about": "About",
-    "ok": "OK",
-    "refresh": "Refresh",
-    "copy_link": "Copy Link",
-    "copied": "Copied",
-    "loading": "loading..."
+  "app_name": "video_getter",
+  "about": "About",
+  "ok": "OK",
+  "refresh": "Refresh",
+  "copy_link": "Copy Link",
+  "copied": "Copied",
+  "loading": "loading...",
+  "input_url_tip": "Paste URL here",
+  "paste": "Paste",
+  "download": "Download",
+  "error_url": "url link error"
 }

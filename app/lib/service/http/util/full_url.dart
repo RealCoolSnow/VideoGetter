@@ -23,7 +23,8 @@ class FullUrl {
     //u += ('&uid=' + Config.uid);
     if (params != null && params.length > 0) {
       params.forEach((String key, String value) {
-        u += ('&$key=$value');
+        var v = Uri.encodeComponent(value);
+        u += ('&$key=$v');
       });
     }
     u += ('&t=' + TimeUtil.currentTimeMillis().toString());

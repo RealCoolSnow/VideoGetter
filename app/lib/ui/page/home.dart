@@ -5,32 +5,32 @@
  * @LastEditors: CoolSnow
  * @LastEditTime: 2020-09-11 16:04:30
  */
-import 'package:fluro/fluro.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:video_getter/config/config.dart';
-import 'package:video_getter/config/route/routes.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:video_getter/locale/i18n.dart';
-import 'package:video_getter/ui/page/home/tab1.dart';
-import 'package:video_getter/ui/page/home/tab2.dart';
-import 'package:video_getter/ui/page/home/tab3.dart';
-import 'package:video_getter/ui/widget/smart_drawer.dart';
-import 'package:video_getter/util/log_util.dart';
+import 'package:video_getter/service/http/http_util.dart';
+import 'package:video_getter/util/loading_util.dart';
+import 'package:video_getter/util/toast_util.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => new _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController _inputController;
+  @override
+  void initState() {
+    super.initState();
+    _inputController = TextEditingController(text: "");
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: _buildAppBar(),
-        drawer: _buildDrawer(),
-
-        ///to disable slide slip
-        ///drawerEdgeDragWidth: 0.0,
         body: _buildBody(),
       ),
     );
@@ -40,70 +40,59 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       title: Text(I18n.of(context).text('app_name')),
       actions: <Widget>[],
-      bottom: _buildTabBar(),
-    );
-  }
-
-  Widget _buildTabBar() {
-    return TabBar(
-      indicatorColor: Colors.white,
-      tabs: <Widget>[
-        Tab(icon: Icon(Icons.home)),
-        Tab(icon: Icon(Icons.change_history)),
-        Tab(icon: Icon(Icons.face)),
-      ],
-    );
-  }
-
-  Widget _buildDrawer() {
-    return SmartDrawer(
-      callback: (isOpened) => {logUtil.d('drawerCallback $isOpened')},
-      widthPercent: 0.6,
-      child: ListView(
-        /// set padding for status bar color
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.pink,
-            ),
-            child: Center(
-              child: SizedBox(
-                width: 60,
-                height: 60,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text('A',
-                      style: TextStyle(color: Colors.purple, fontSize: 30)),
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text(I18n.of(context).text('about')),
-            onTap: _showAbout,
-          )
-        ],
-      ),
     );
   }
 
   Widget _buildBody() {
-    return TabBarView(children: [Tab1(), Tab2(), Tab3()]);
+    return FlutterEasyLoading(
+        child: Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                TextField(
+                    controller: _inputController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(3)),
+                        hintText: I18n.of(context).text("input_url_tip"))),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    verticalDirection: VerticalDirection.down,
+                    children: <Widget>[
+                      RaisedButton(
+                          onPressed: _paste,
+                          child: Text(I18n.of(context).text("paste"))),
+                      RaisedButton(
+                          onPressed: _download,
+                          child: Text(I18n.of(context).text("download")))
+                    ]),
+              ],
+            )));
   }
 
-  void _handlerDrawerButton() {
-    Scaffold.of(context).openDrawer();
+  _paste() {
+    FlutterClipboard.paste().then((value) {
+      setState(() {
+        _inputController.text = value;
+      });
+    });
   }
 
-  void _closeDrawer() {
-    Navigator.of(context).pop();
-  }
-
-  void _showAbout() {
-    _closeDrawer();
-    Config.router
-        .navigateTo(context, Routes.about, transition: TransitionType.fadeIn);
+  _download() {
+    String url = _inputController.text.trim();
+    if (!url.toLowerCase().startsWith("http")) {
+      ToastUtil.show(I18n.of(context).text("error_url"));
+    } else {
+      LoadingUtil.show(context);
+      HttpUtil().get('/parse', getParams: {"url": url}).then((value) {
+        LoadingUtil.dismiss();
+        ToastUtil.show(value.toString());
+      }).catchError((error) {
+        LoadingUtil.dismiss();
+        ToastUtil.show(error.msg);
+      });
+    }
   }
 }

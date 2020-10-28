@@ -44,8 +44,8 @@ class _AppState extends State<App> {
       title: Config.app,
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
-        primarySwatch: AppTheme.primary,
-        splashColor: AppTheme.splash,
+        primarySwatch: AppColor.primary,
+        splashColor: AppColor.primary,
       ),
       localizationsDelegates: [
         const I18nDelegate(),
@@ -63,9 +63,11 @@ class _AppState extends State<App> {
     return SplashScreen(
         seconds: 3,
         navigateAfterSeconds: HomePage(),
-        title: Text('flutter_easy',
+        title: Text('Video Getter',
             style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 20, color: Colors.pink)),
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+                color: AppColor.white)),
         imageBackground: AssetImage('assets/images/splash.jpg'),
         icon: AssetImage('assets/images/avatar.jpg'),
         backgroundColor: Colors.white,

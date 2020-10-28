@@ -8,7 +8,7 @@
 import 'dart:io';
 
 class HttpConfig {
-  static const String baseUrl = "https://app.joy666.cn/api";
+  static const String baseUrl = "https://m.joy666.cn/v";
   static final ContentType contentType = ContentType.json;
   static const connectTimeout = 30000;
   static const receiveTimeout = 30000;
