@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"video.get/m/media/tiktok"
+	"video.get/m/media/twitter"
 	"video.get/m/media/weibo"
 )
 
@@ -12,11 +13,13 @@ const (
 	Unknown = 0
 	Weibo   = 1
 	Tiktok  = 2
+	Twitter = 3
 )
 
 const (
-	NameWeibo  = "Weibo"
-	NameTiktok = "Tiktok"
+	NameWeibo   = "Weibo"
+	NameTiktok  = "Tiktok"
+	NameTwitter = "Twitter"
 )
 
 // SourceInfo -
@@ -55,6 +58,14 @@ func GetMediaInfo(url string) (MediaInfo, error) {
 			mediaInfo.Info = tiktokVideoInfo
 			mediaInfo.Source = SourceInfo{ID: Tiktok, Name: NameTiktok}
 		}
+	case Twitter:
+		{
+			var twitterVideoInfo twitter.TwitterVideoInfo
+			videoURL, twitterVideoInfo, err = twitter.ParseTwitterVideo(url)
+			mediaInfo.URL = videoURL
+			mediaInfo.Info = twitterVideoInfo
+			mediaInfo.Source = SourceInfo{ID: Twitter, Name: NameTwitter}
+		}
 	}
 	return mediaInfo, err
 }
@@ -65,6 +76,8 @@ func GetMediaSource(url string) int {
 	if strings.Contains(url, "weibo.com") {
 		return Weibo
 	} else if strings.Contains(url, "tiktok.com") {
+		return Tiktok
+	} else if strings.Contains(url, "twitter.com") {
 		return Tiktok
 	}
 	return Unknown
