@@ -78,7 +78,7 @@ func GetMediaSource(url string) int {
 	} else if strings.Contains(url, "tiktok.com") {
 		return Tiktok
 	} else if strings.Contains(url, "twitter.com") {
-		return Tiktok
+		return Twitter
 	}
 	return Unknown
 }
