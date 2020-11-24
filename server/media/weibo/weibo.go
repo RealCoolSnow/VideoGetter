@@ -1,4 +1,4 @@
-package parser
+package weibo
 
 import (
 	"encoding/json"
