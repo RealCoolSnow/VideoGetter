@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "taro-quick-start",
+  "projectname": "video-getter",
   "description": "Taro and Vue3.",
   "appid": "touristappid",
   "setting": {
