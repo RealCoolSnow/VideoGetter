@@ -150,6 +150,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   _paste() {
+    if (LoadingUtil.isShowing()) {
+      return;
+    }
     FlutterClipboard.paste().then((value) {
       setState(() {
         _inputController.text = value;
@@ -158,6 +161,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   _download() {
+    if (LoadingUtil.isShowing()) {
+      return;
+    }
     String url = _inputController.text.trim();
     if (!url.toLowerCase().startsWith("http")) {
       ToastUtil.show(I18n.of(context).text("error_url"));

@@ -59,6 +59,10 @@ class LoadingUtil {
     EasyLoading.showToast(status, duration: duration);
   }
 
+  static bool isShowing() {
+    return EasyLoading.isShow;
+  }
+
   static dismiss() {
     EasyLoading.dismiss();
   }
