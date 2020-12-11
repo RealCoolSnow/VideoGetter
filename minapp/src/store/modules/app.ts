@@ -8,6 +8,7 @@ import MutationTypes from '../mutation-types'
 const KEY_LANGUAGE = 'language'
 const KEY_SESSION_ID = 'session_id'
 const KEY_USER_ID = 'user_id'
+const KEY_USER_INFO = 'userinfo'
 
 const app = {
   state: {
@@ -15,6 +16,7 @@ const app = {
     language: Taro.getStorageSync(KEY_LANGUAGE) || 'cn',
     sessionId: Taro.getStorageSync(KEY_SESSION_ID) || '',
     userId: Taro.getStorageSync(KEY_USER_ID) || '',
+    userInfo: Taro.getStorageSync(KEY_USER_INFO) || {},
   },
   mutations: {
     [MutationTypes.APP.SET_LANGUAGE]: (state: any, language: string) => {
@@ -31,6 +33,10 @@ const app = {
     [MutationTypes.APP.SET_USER_ID]: (state: any, userId: string) => {
       state.userId = userId
       Taro.setStorageSync(KEY_USER_ID, userId)
+    },
+    [MutationTypes.APP.SET_USER_INFO]: (state: any, userInfo: any) => {
+      state.userInfo = userInfo
+      Taro.setStorageSync(KEY_USER_INFO, userInfo)
     },
   },
   actions: {
