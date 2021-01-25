@@ -5,7 +5,7 @@ import 'taro-ui-vue/dist/style/index.scss'
 import { silentLogin } from './utils/login'
 
 const app = createApp({
-  onShow(options) {
+  setup(options) {
     console.log('app created')
     silentLogin()
   },
